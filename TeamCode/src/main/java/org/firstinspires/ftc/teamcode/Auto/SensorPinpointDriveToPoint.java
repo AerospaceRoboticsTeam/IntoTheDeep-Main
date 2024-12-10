@@ -35,12 +35,18 @@ public class SensorPinpointDriveToPoint extends LinearOpMode {
         DRIVE_TO_TARGET_4,
         DRIVE_TO_TARGET_5
     }
-
+/*
     static final Pose2D TARGET_1 = new Pose2D(DistanceUnit.MM,2000,20,AngleUnit.DEGREES,0);
     static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, 2600, -20, AngleUnit.DEGREES, -90);
     static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,2600,-2600, AngleUnit.DEGREES,-90);
     static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 100, -2600, AngleUnit.DEGREES, 90);
     static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 100, 0, AngleUnit.DEGREES, 0);
+*/
+    static final Pose2D TARGET_1 = new Pose2D(DistanceUnit.MM,200,0,AngleUnit.DEGREES,0);
+    static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, 260, 0, AngleUnit.DEGREES, -90);
+    static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,260,0, AngleUnit.DEGREES,-90);
+    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 10, 0, AngleUnit.DEGREES, 90);
+    static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 10, 0, AngleUnit.DEGREES, 0);
 
 
     @Override
@@ -49,10 +55,10 @@ public class SensorPinpointDriveToPoint extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
 
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFrontDrive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
-        leftBackDrive   = hardwareMap.get(DcMotor.class, "leftBackDrive");
-        rightBackDrive  = hardwareMap.get(DcMotor.class, "rightBackDrive");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_mtr");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_mtr");
+        leftBackDrive   = hardwareMap.get(DcMotor.class, "left_back_mtr");
+        rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_mtr");
 
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -103,7 +109,7 @@ public class SensorPinpointDriveToPoint extends LinearOpMode {
                      */
                     if (nav.driveTo(odo.getPosition(), TARGET_1, 0.7, 0)){
                         telemetry.addLine("at position #1!");
-                        stateMachine = StateMachine.DRIVE_TO_TARGET_2;
+                        //stateMachine = StateMachine.DRIVE_TO_TARGET_2;
                     }
                     break;
                 case DRIVE_TO_TARGET_2:
