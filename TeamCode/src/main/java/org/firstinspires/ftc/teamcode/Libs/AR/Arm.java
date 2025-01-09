@@ -34,8 +34,6 @@ public class Arm {
         MTR_VS.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // Set Motor to 0 ticks.
         MTR_VS.setDirection(DcMotor.Direction.REVERSE);
         SRV_LG = bot.hardwareMap.get(Servo.class, "claw");
-
-
         SRV_RG = bot.hardwareMap.get(Servo.class, "wrist");
 
         guardGripper();

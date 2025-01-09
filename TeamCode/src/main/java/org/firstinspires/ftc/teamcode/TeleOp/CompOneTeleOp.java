@@ -28,13 +28,10 @@ public class CompOneTeleOp extends LinearOpMode
             // ---------------------Gamepad 1 Controls ---------------------------------------------
 
             if (gamepad1.left_trigger != 0) {
-            } else if (gamepad1.right_trigger != 0) {
-            } else if (gamepad1.left_trigger == 0 || gamepad1.right_trigger == 0) {
+                mecanumDrive.setBoost(1);
             }
-
-            if (gamepad1.dpad_down) {
-            } else if (gamepad1.dpad_left) {
-            } else if (gamepad1.dpad_up) {
+            else {
+                mecanumDrive.setBoost(0.5);
             }
 
             //**************************************************************************************
