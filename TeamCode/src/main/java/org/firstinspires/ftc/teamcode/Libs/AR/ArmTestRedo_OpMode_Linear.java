@@ -55,25 +55,25 @@ public class ArmTestRedo_OpMode_Linear extends LinearOpMode
             // ===== CHECK FOR INPUTS FROM GAMEPADS, ETC. ==========================================
             // We should perform all our user input checks here. Every loop, we should determine if the
             // user has input anything.
-            if (gamepad1.triangle) {
+            if (gamepad1.triangle || gamepad1.y) {
                 telemetry.addData("Status","GP1:Triangle (Light: Police)");
 //                light.policeLights();
             }
-            if (gamepad1.square) {
+            if (gamepad1.square || gamepad1.a) {
                 telemetry.addData("Status","GP1:Square (setArmDeployPos) Light: Orange");
 
                 // Set Arm into Deploy position.
                 arm.setArmDeployPos();
 //                light.customLight(AR_Light.GB_CLR_ORANGE);
             }
-            if (gamepad1.circle) {
+            if (gamepad1.circle || gamepad1.b) {
                 telemetry.addData("Status","GP1:Circle (setArmRestPos)");
 
                 // Set Arm into Rest position.
                 arm.setArmActivePos( );
 //                light.customLight(AR_Light.GB_CLR_SAGE);
             }
-            if (gamepad1.cross) {
+            if (gamepad1.cross || gamepad1.a) {
                 telemetry.addData("Status","GP1:Cross (setArmGrabPos)");
 
                 // Set Arm into GRAB position.

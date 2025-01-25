@@ -72,7 +72,6 @@ public class Arm {
 
 
     public void moveSlideDown() {
-        SRV_LG.setPosition(dWristDown);
         MTR_VS.setTargetPosition(20);
         MTR_VS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
@@ -94,7 +93,7 @@ public class Arm {
 
 
     public void moveSlideHigh() {
-        MTR_VS.setTargetPosition(2700);
+        MTR_VS.setTargetPosition(3000);
         MTR_VS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
     }

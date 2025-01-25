@@ -67,28 +67,27 @@ public class MecanumDrive2 {
 
     public void drive(){
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
-        // Joystick values (field-centric)
-        y = -(bot.gamepad1.left_stick_y) * ySensitivity; // Invert for standard forward-backward control
-        x = -bot.gamepad1.left_stick_x * xSensitivity;   // Strafing left-right
-        rx = bot.gamepad1.right_stick_x * rxSensitivity; // Rotation value
 
         // Get robot's heading from IMU (yaw angle)
+        y = -(bot.gamepad1.left_stick_y) * ySensitivity; // Reversed Value
+        x = bot.gamepad1.left_stick_x * xSensitivity ; // The double value on the left is a sensitivity setting (change when needed)
+        rx = bot.gamepad1.right_stick_x * rxSensitivity; // Rotational Value
+
+        //TODO: Check this
+        // Find the first angle (Yaw) to get the robot heading.
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        // Calculate field-centric values for x and y based on the robot's heading
+        // Translate to robot heading from field heading for motor values
         rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-        // Denominator for normalizing motor values
+        // Denominator is the largest motor power
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-
-        // Calculate motor powers for each wheel based on joystick and heading adjustments
         leftFrontPower = -(rotY + rotX + rx) / denominator;
-        leftBackPower = -(rotY - rotX + rx) / denominator;
+        leftBackPower = (rotY - rotX + rx) / denominator;
         rightFrontPower = (rotY - rotX - rx) / denominator;
         rightBackPower = (rotY + rotX - rx) / denominator;
 
-        // Apply boost factor
         frontLeft.setPower(leftFrontPower * boost);
         backLeft.setPower(leftBackPower * boost);
         frontRight.setPower(rightFrontPower * boost);
@@ -138,16 +137,5 @@ public class MecanumDrive2 {
         bot.telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
         bot.telemetry.addData("Heading: ", getBotHeading());
     }
-/*
-    public void getTelemetryDataSecond() {
-        secondbot.telemetry.addData("Left Front: ", getLeftFrontPower());
-        secondbot.telemetry.addData("Left Back: ", getLeftBackPower());
-        secondbot.telemetry.addData("Right Front: ", getRightFrontPower());
-        secondbot.telemetry.addData("Right Back: ", getRightBackPower());
-        secondbot.telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
-        secondbot.telemetry.addData("Heading: ", getBotHeading());
-    }
-
- */
 }
 
