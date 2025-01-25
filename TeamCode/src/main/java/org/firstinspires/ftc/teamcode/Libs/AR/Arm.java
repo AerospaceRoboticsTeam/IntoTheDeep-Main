@@ -12,12 +12,12 @@ public class Arm {
     private DcMotor MTR_VS;
     private Servo SRV_LG, SRV_RG;
     private static final double MTR_VS_PW = 0.7;  //TODO: Check power values when testing
-    private double dGripperOpen = -0.9;
+    private double dGripperOpen = 0.3;
     private double dGripperGuard = 0.1;
-    private double dGripperClosed = -0.9;
+    private double dGripperClosed = 0.5;
 
-    private double dWristUp = 0.7;
-    private double dWristGrab = 0.2;
+    private double dWristUp = 0.3;
+    private double dWristGrab = 0.12;
     private double dWristDown = 0.1;
     private int gripperCurrPosition;
     private int open = 1;
@@ -40,28 +40,38 @@ public class Arm {
     }
     public void openGripper() {
         SRV_LG.setPosition(dGripperOpen);
-        SRV_RG.setPosition(dWristUp);
         gripperCurrPosition = open;
     }
 
-
     public void guardGripper() {
         SRV_LG.setPosition(dGripperGuard);
-        SRV_RG.setPosition(dWristGrab);
         gripperCurrPosition = guard;
         //TODO: Must test these values and see if they are the right angle
     }
 
+    public void wristDown() {
+        SRV_RG.setPosition(dWristDown);
+        //gripperCurrPosition = closed;
+    }
+
+    public void wristGrab() {
+        SRV_RG.setPosition(dWristGrab);
+        //gripperCurrPosition = open;
+    }
+
+    public void wristUp() {
+        SRV_RG.setPosition(dWristUp);
+        //gripperCurrPosition = guard;
+        //TODO: Must test these values and see if they are the right angle
+    }
 
     public void closeGripper() {
         SRV_LG.setPosition(dGripperClosed);
-        SRV_RG.setPosition(dWristDown);
         gripperCurrPosition = closed;
     }
 
 
     public void moveSlideDown() {
-        SRV_LG.setPosition(dWristDown);
         MTR_VS.setTargetPosition(20);
         MTR_VS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
@@ -83,7 +93,7 @@ public class Arm {
 
 
     public void moveSlideHigh() {
-        MTR_VS.setTargetPosition(2700);
+        MTR_VS.setTargetPosition(3000);
         MTR_VS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         powerArm();
     }
@@ -108,4 +118,3 @@ public class Arm {
 
 
 }
-
