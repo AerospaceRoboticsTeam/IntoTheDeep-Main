@@ -42,7 +42,7 @@ public class CompOneTeleOp extends LinearOpMode
 
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
-
+/*
             if (gamepad1.dpad_up) {
                 telemetry.addData("Status","GP1:Square (setArmDeployPos) Light: Orange");
 
@@ -80,7 +80,7 @@ public class CompOneTeleOp extends LinearOpMode
 
             //**************************************************************************************
             //--------------------- TELEMETRY Code -------------------------------------------------
-
+*/
             // Useful telemetry data in case needed for testing and to find heading of robot
             mecanumDrive.getTelemetryData();
 

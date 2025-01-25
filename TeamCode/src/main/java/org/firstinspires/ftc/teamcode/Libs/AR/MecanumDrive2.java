@@ -69,7 +69,7 @@ public class MecanumDrive2 {
         //---------------------Gamepad 1 Controls/Drivetrain Movement----------------------//
         // Joystick values (field-centric)
         y = -(bot.gamepad1.left_stick_y) * ySensitivity; // Invert for standard forward-backward control
-        x = bot.gamepad1.left_stick_x * xSensitivity;   // Strafing left-right
+        x = -bot.gamepad1.left_stick_x * xSensitivity;   // Strafing left-right
         rx = bot.gamepad1.right_stick_x * rxSensitivity; // Rotation value
 
         // Get robot's heading from IMU (yaw angle)
@@ -84,7 +84,7 @@ public class MecanumDrive2 {
 
         // Calculate motor powers for each wheel based on joystick and heading adjustments
         leftFrontPower = -(rotY + rotX + rx) / denominator;
-        leftBackPower = (rotY - rotX + rx) / denominator;
+        leftBackPower = -(rotY - rotX + rx) / denominator;
         rightFrontPower = (rotY - rotX - rx) / denominator;
         rightBackPower = (rotY + rotX - rx) / denominator;
 
