@@ -2,18 +2,23 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.Libs.AR.Arm;
 import org.firstinspires.ftc.teamcode.Libs.AR.MecanumDrive;
 
-@TeleOp(name = "CompOne TeleOp", group = "TeleOp")
-public class CompOneTeleOp extends LinearOpMode
+@TeleOp(name = "CompTwo TeleOp", group = "TeleOp")
+public class CompTwoTeleOp extends LinearOpMode
 {
     private MecanumDrive mecanumDrive;
+
+    private Arm slide;
 
     //@Override
     public void runOpMode()
     {
         // Initialize the drivetrain
         mecanumDrive = new MecanumDrive(this);
+        slide = new Arm (this);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -25,30 +30,29 @@ public class CompOneTeleOp extends LinearOpMode
             mecanumDrive.drive();
 
             //**************************************************************************************
-            // ---------------------Gamepad 1 Controls ---------------------------------------------
-
-            if (gamepad1.left_trigger != 0) {
-                mecanumDrive.setBoost(1);
-            }
-            else {
-                mecanumDrive.setBoost(0.5);
-            }
-
-            //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
+
+
+
             if (gamepad2.y) {
-
+                slide.openGripper();
             } else if (gamepad2.b){
+                slide.closeGripper();
+            }
+            else{
+                slide.guardGripper();
             }
 
-            if (gamepad2.right_stick_y < -0.1) {
-            } else if (gamepad2.right_stick_y > -0.1) {
+            if (gamepad2.dpad_up){
+                slide.moveSlideHigh();
+            } else if (gamepad2.dpad_right) {
+                slide.moveSlideMiddle();
+            } else if (gamepad2.dpad_left) {
+                slide.moveSlideLow();
+            } else if (gamepad2.dpad_down) {
+                slide.moveSlideDown();
             }
 
-            // Hotkeys (to change gripper position)
-            if (gamepad2.left_trigger != 0) {
-            } else if (gamepad2.right_trigger != 0) {
-            }
 
             // Todo: Remove when not needed anymore.
             //double forward = -gamepad1.left_stick_y;
@@ -61,7 +65,7 @@ public class CompOneTeleOp extends LinearOpMode
 
             // Useful telemetry data in case needed for testing and to find heading of robot
             mecanumDrive.getTelemetryData();
-
+            slide.getTelemetryData();
             telemetry.update();
         }
     }

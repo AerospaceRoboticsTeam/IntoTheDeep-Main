@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Libs.AR;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Libs.GoBilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.TeleOp.CompOneTeleOp;
+import org.firstinspires.ftc.teamcode.TeleOp.CompTwoTeleOp;
 
 public class MecanumDrive {
     private double y; //value of y on joystick
@@ -21,6 +23,8 @@ public class MecanumDrive {
     private static double ySensitivity = 0.75;
     private static double rxSensitivity = 0.75;
 
+    private double boost = 0.5;
+
     private DcMotor frontLeft, frontRight, backLeft, backRight;
 
     // ToDo: Remove this commented code once we know the GoBilda IMU is working
@@ -29,9 +33,10 @@ public class MecanumDrive {
     // Declare OpMode member for the Odometry Computer
     GoBildaPinpointDriver odo;
 
-    CompOneTeleOp bot;
+    LinearOpMode bot;
+    CompTwoTeleOp secondbot;
 
-    public MecanumDrive(CompOneTeleOp iBot)
+    public MecanumDrive(LinearOpMode iBot)
     {
         bot = iBot;
         frontLeft = iBot.hardwareMap.dcMotor.get("left_front_mtr");
@@ -76,15 +81,15 @@ public class MecanumDrive {
 
         // Denominator is the largest motor power
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        leftFrontPower = (rotY + rotX + rx) / denominator;
+        leftFrontPower = -(rotY + rotX + rx) / denominator;
         leftBackPower = (rotY - rotX + rx) / denominator;
         rightFrontPower = (rotY - rotX - rx) / denominator;
         rightBackPower = (rotY + rotX - rx) / denominator;
 
-        frontLeft.setPower(leftFrontPower);
-        backLeft.setPower(leftBackPower);
-        frontRight.setPower(rightFrontPower);
-        backRight.setPower(rightBackPower);
+        frontLeft.setPower(leftFrontPower * boost);
+        backLeft.setPower(leftBackPower * boost);
+        frontRight.setPower(rightFrontPower * boost);
+        backRight.setPower(rightBackPower * boost);
     }
 
     public void stop() {
@@ -92,6 +97,10 @@ public class MecanumDrive {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
+    }
+
+    public void setBoost(double x){
+        boost = x;
     }
 
     // Returns power to left front motor
@@ -126,5 +135,16 @@ public class MecanumDrive {
         bot.telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
         bot.telemetry.addData("Heading: ", getBotHeading());
     }
+/*
+    public void getTelemetryDataSecond() {
+        secondbot.telemetry.addData("Left Front: ", getLeftFrontPower());
+        secondbot.telemetry.addData("Left Back: ", getLeftBackPower());
+        secondbot.telemetry.addData("Right Front: ", getRightFrontPower());
+        secondbot.telemetry.addData("Right Back: ", getRightBackPower());
+        secondbot.telemetry.addData("Heading: ", ((int) Math.toDegrees(getBotHeading())) + " degrees");
+        secondbot.telemetry.addData("Heading: ", getBotHeading());
+    }
+
+ */
 }
 
