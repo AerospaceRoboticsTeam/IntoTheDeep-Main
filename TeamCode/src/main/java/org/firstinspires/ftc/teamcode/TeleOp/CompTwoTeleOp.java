@@ -29,18 +29,33 @@ public class CompTwoTeleOp extends LinearOpMode
             // and update the drivetrain with those values.
             mecanumDrive.drive();
 
+            if (gamepad1.left_trigger != 0) {
+                mecanumDrive.setBoost(1);
+            }
+            else {
+                mecanumDrive.setBoost(0.5);
+            }
+
             //**************************************************************************************
             // ---------------------Gamepad 2 Controls ---------------------------------------------
 
 
-
             if (gamepad2.y) {
                 slide.openGripper();
-            } else if (gamepad2.b){
+            } else if (gamepad2.a){
                 slide.closeGripper();
             }
             else{
                 slide.guardGripper();
+            }
+
+            if (gamepad2.x) {
+                slide.wristUp();
+            } else if (gamepad2.b){
+                slide.wristDown();
+            }
+            else{
+                slide.wristGrab();
             }
 
             if (gamepad2.dpad_up){
@@ -66,6 +81,7 @@ public class CompTwoTeleOp extends LinearOpMode
             // Useful telemetry data in case needed for testing and to find heading of robot
             mecanumDrive.getTelemetryData();
             slide.getTelemetryData();
+            
             telemetry.update();
         }
     }
