@@ -83,7 +83,7 @@ public class MecanumDrive2 {
 
         // Denominator is the largest motor power
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        leftFrontPower = -(rotY + rotX + rx) / denominator;
+        leftFrontPower = (rotY + rotX + rx) / denominator;
         leftBackPower = (rotY - rotX + rx) / denominator;
         rightFrontPower = (rotY - rotX - rx) / denominator;
         rightBackPower = (rotY + rotX - rx) / denominator;

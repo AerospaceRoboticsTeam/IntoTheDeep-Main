@@ -176,8 +176,8 @@ public class SimpleAuto extends LinearOpMode {
          *
          * To Do:  EDIT these two lines to match YOUR mounting configuration.
          */
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
         // Now initialize the IMU with this mounting orientation
@@ -211,7 +211,7 @@ public class SimpleAuto extends LinearOpMode {
         else {
             turnToHeading(TURN_SPEED, -90.0);
         }
-        driveStraight(DRIVE_SPEED, 30, 0.0);
+        driveStraight(DRIVE_SPEED, 20, 0.0);
 
 
         // Dilip TOD - ASsume this is where we park
