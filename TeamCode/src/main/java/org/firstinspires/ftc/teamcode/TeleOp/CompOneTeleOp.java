@@ -72,15 +72,9 @@ public class CompOneTeleOp extends LinearOpMode
 
             arm.updateArmPos();
 
-            // Todo: Remove when not needed anymore.
-            //double forward = -gamepad1.left_stick_y;
-            //double strafe = gamepad1.left_stick_x;
-            //double rotation = gamepad1.right_stick_x;
-            //mecanumDrive.move(strafe, forward, rotation);
-
+*/
             //**************************************************************************************
             //--------------------- TELEMETRY Code -------------------------------------------------
-*/
             // Useful telemetry data in case needed for testing and to find heading of robot
             mecanumDrive.getTelemetryData();
 

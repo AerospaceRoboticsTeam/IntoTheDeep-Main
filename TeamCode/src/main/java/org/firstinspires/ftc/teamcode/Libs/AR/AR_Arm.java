@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Libs.AR;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 /**
  * This class create an AR_Arm object that is used to encapsulate all the code used to control and use
@@ -22,9 +23,9 @@ public class AR_Arm
     // These variables are used to customize joint angles for the AR_Arm. All of these
     // variables are available to be adjusted, in real-time, using FTC Dashboard.
     public static int FIRST_JOINT_START = -40,      SECOND_JOINT_START = 0;
-    public static int FIRST_JOINT_ACTIVE = -70,      SECOND_JOINT_ACTIVE = 65;
-    public static int FIRST_JOINT_DEPLOY = -170, SECOND_JOINT_DEPLOY = 200;
-    public static int FIRST_JOINT_GRAB = -70,    SECOND_JOINT_GRAB = 145;
+    public static int FIRST_JOINT_ACTIVE = -70,      SECOND_JOINT_ACTIVE = -65;
+    public static int FIRST_JOINT_DEPLOY = -170, SECOND_JOINT_DEPLOY = -200;
+    public static int FIRST_JOINT_GRAB = -70,    SECOND_JOINT_GRAB = -145;
 
     public static double P1 = 0.003, I1 = 0.05, D1 = 0.0001;
     public static double F1 = 0.05;
@@ -40,6 +41,9 @@ public class AR_Arm
     // Create a "AR_Joint" instance for each joint of the "AR_Arm".
     private AR_Joint jointFirst;
     private AR_Joint jointSecond;
+
+    private CRServo leftGripper;
+    private CRServo rightGripper;
 
     // Variables to save the desired angle of the two AR_JOINTs.
     private int targetFirst;
@@ -63,8 +67,8 @@ public class AR_Arm
         // Declare instances of the two joints.
         this.jointFirst = new AR_Joint(this.bot, "first_joint", P1, I1, D1, F1);
         this.jointSecond = new AR_Joint(this.bot, "second_joint", P2, I2, D2, F2);
-
-
+        this.leftGripper = bot.hardwareMap.crservo.get("left_gripper");
+        this.rightGripper = bot.hardwareMap.crservo.get("right_gripper");
     }
 
     /**
@@ -151,5 +155,24 @@ public class AR_Arm
             lastState = currentState;
             currentState = AR_Arm.START;
         }
+    }
+
+    public void grab( )
+    {
+        // Todo: This needs to be carefully tested before we run the code to make sure the motor direction is correct, etc.
+        leftGripper.setPower(1);
+        rightGripper.setPower(1);
+        }
+    public void drop( )
+    {
+        // Todo: This needs to be carefully tested before we run the code to make sure the motor direction is correct, etc.
+        leftGripper.setPower(-1);
+        rightGripper.setPower(-1);
+    }
+    public void rest( )
+    {
+        // Todo: This needs to be carefully tested before we run the code to make sure the motor direction is correct, etc.
+        leftGripper.setPower(0);
+        rightGripper.setPower(0);
     }
 }
